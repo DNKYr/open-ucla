@@ -1,0 +1,7 @@
+{
+  "name": "Introduction to Computer Science I",
+  "number": "31",
+  "department": "Computer Science",
+  "departmentCode": "COM SCI",
+  "description": "Introductory course in computer science using C++. Topics include variables, data types, control structures, functions, arrays, strings, and classes."
+}
