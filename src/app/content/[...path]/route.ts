@@ -26,7 +26,13 @@ export async function GET(
 
   // Validate each segment individually
   const isSafe = segments.every(
-    (s) => s && !s.includes("\0") && s !== "." && s !== ".."
+    (s) =>
+      s &&
+      !s.includes("\0") &&
+      !s.includes("/") &&
+      !s.includes("\\") &&
+      s !== "." &&
+      s !== ".."
   );
   if (!isSafe) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });

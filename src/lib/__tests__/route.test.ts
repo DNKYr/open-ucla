@@ -9,7 +9,13 @@ const CONTENT_DIR = path.resolve(process.cwd(), "content");
 
 function isSegmentSafe(segments: string[]): boolean {
   return segments.every(
-    (s) => s && !s.includes("\0") && s !== "." && s !== ".."
+    (s) =>
+      s &&
+      !s.includes("\0") &&
+      !s.includes("/") &&
+      !s.includes("\\") &&
+      s !== "." &&
+      s !== ".."
   );
 }
 
@@ -34,6 +40,14 @@ describe("content route path validation", () => {
 
     it("rejects segments with null bytes", () => {
       expect(isSegmentSafe(["com-sci\0", "31"])).toBe(false);
+    });
+
+    it("rejects segments with forward slashes", () => {
+      expect(isSegmentSafe(["foo/bar"])).toBe(false);
+    });
+
+    it("rejects segments with backslashes", () => {
+      expect(isSegmentSafe(["foo\\bar"])).toBe(false);
     });
 
     it("accepts valid segments", () => {
